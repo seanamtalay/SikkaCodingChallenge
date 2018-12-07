@@ -26,8 +26,8 @@ import java.util.Collections
 import java.util.Comparator
 
 class InstagramActivity : AppCompatActivity() {
-
-    private var mQueue: RequestQueue? = null
+    private val TAG = "InstagramActivity"
+    private lateinit var mQueue: RequestQueue
     private val instagramObjList = ArrayList<InstagramObject>()
     private val linkUrlList = ArrayList<String>() //for checking duplicates
 
@@ -80,10 +80,6 @@ class InstagramActivity : AppCompatActivity() {
 
                             //assign value to the instagram obj
                             val currentInstagramObject = InstagramObject(currentImgUrl, currentLinkUrl, currentLikeCount as Integer)
-                            //currentInstagramObject.setImgUrl(currentImgUrl);
-                            //currentInstagramObject.setLinkUrl(currentLinkUrl);
-                            //currentInstagramObject.setLikeCount(currentLikeCount);
-
 
                             instagramObjList.add(currentInstagramObject)
                         }
@@ -105,7 +101,7 @@ class InstagramActivity : AppCompatActivity() {
                 }
             }, Response.ErrorListener { error -> error.printStackTrace() })
 
-            mQueue!!.add(request)
+            mQueue.add(request)
         }
     }
 
@@ -121,7 +117,4 @@ class InstagramActivity : AppCompatActivity() {
         }
     }
 
-    companion object {
-        private val TAG = "InstagramActivity"
-    }
 }

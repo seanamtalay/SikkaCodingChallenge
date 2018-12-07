@@ -18,7 +18,7 @@ import java.text.NumberFormat
 import java.util.ArrayList
 import java.util.Locale
 
-class YoutubeRecyclerViewAdapter(private val mContext: Context, val youtubeObjList: ArrayList<YoutubeObject>) : RecyclerView.Adapter<YoutubeRecyclerViewAdapter.ViewHolder>() {
+class YoutubeRecyclerViewAdapter(private val mContext: Context, private val youtubeObjList: ArrayList<YoutubeObject>) : RecyclerView.Adapter<YoutubeRecyclerViewAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
@@ -34,7 +34,7 @@ class YoutubeRecyclerViewAdapter(private val mContext: Context, val youtubeObjLi
         val shownViewText = NumberFormat.getNumberInstance(Locale.US).format(youtubeObjList[i].viewsCount) + " views"
         viewHolder.viewsText.text = shownViewText
 
-        val thumbnailUrl = youtubeObjList[i].thumbnailUrl
+        val thumbnailUrl: String? = youtubeObjList[i].thumbnailUrl
         if (thumbnailUrl != null && !thumbnailUrl.isEmpty()) {
             //GlideApp.with(mContext).load(Uri.parse(thumbnailUrl)).into(viewHolder.thumbnailImage);
             Glide.with(mContext).load(Uri.parse(thumbnailUrl)).into(viewHolder.thumbnailImage)
@@ -60,22 +60,14 @@ class YoutubeRecyclerViewAdapter(private val mContext: Context, val youtubeObjLi
         return youtubeObjList.size
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var thumbnailImage: ImageView
-        internal var titleText: TextView
-        internal var descriptionText: TextView
-        internal var viewsText: TextView
-        internal var channelText: TextView
-        internal var youtubeListParentLayout: ConstraintLayout
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val thumbnailImage = itemView.findViewById(R.id.layout_youtube_thumbnail) as ImageView
+        val titleText = itemView.findViewById(R.id.layout_youtube_title_text) as TextView
+        val descriptionText = itemView.findViewById(R.id.layout_youtube_des_text) as TextView
+        val viewsText = itemView.findViewById(R.id.layout_youtube_view_text) as TextView
+        val channelText = itemView.findViewById(R.id.layout_youtube_channel_text) as TextView
+        val youtubeListParentLayout = itemView.findViewById(R.id.layout_youtube_contraintLayout) as ConstraintLayout
 
-        init {
-            thumbnailImage = itemView.findViewById(R.id.layout_youtube_thumbnail)
-            titleText = itemView.findViewById(R.id.layout_youtube_title_text)
-            descriptionText = itemView.findViewById(R.id.layout_youtube_des_text)
-            viewsText = itemView.findViewById(R.id.layout_youtube_view_text)
-            channelText = itemView.findViewById(R.id.layout_youtube_channel_text)
-            youtubeListParentLayout = itemView.findViewById(R.id.layout_youtube_contraintLayout)
-        }
     }
 
 

@@ -27,7 +27,7 @@ import java.util.Comparator
 class YoutubeActivity : AppCompatActivity() {
     private val API_KEY = "AIzaSyB9upIxNC2LjANOzh4r28BezoZMsV1FIWA"
     private val youtubeObjList = ArrayList<YoutubeObject>()
-    private var mQueue: RequestQueue? = null
+    private lateinit var mQueue: RequestQueue
     private val TAG = "YoutubeActivity"
 
 
@@ -99,7 +99,7 @@ class YoutubeActivity : AppCompatActivity() {
             }
         }, Response.ErrorListener { error -> error.printStackTrace() })
 
-        mQueue!!.add(request)
+        mQueue.add(request)
 
     }
 
@@ -138,7 +138,7 @@ class YoutubeActivity : AppCompatActivity() {
             }
         }, Response.ErrorListener { error -> error.printStackTrace() })
 
-        mQueue!!.add(request)
+        mQueue.add(request)
     }
 
     private fun initRecyclerView() {

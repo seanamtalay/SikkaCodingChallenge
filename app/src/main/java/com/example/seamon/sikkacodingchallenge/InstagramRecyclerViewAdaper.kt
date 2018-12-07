@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide
 
 import java.util.ArrayList
 
-class InstagramRecyclerViewAdaper(private val mContext: Context, val instagramObjList: ArrayList<InstagramObject>) : RecyclerView.Adapter<InstagramRecyclerViewAdaper.ViewHolder>() {
+class InstagramRecyclerViewAdaper(private val mContext: Context, private val instagramObjList: ArrayList<InstagramObject>) : RecyclerView.Adapter<InstagramRecyclerViewAdaper.ViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.layout_instagram_grid, viewGroup, false)
@@ -25,7 +25,7 @@ class InstagramRecyclerViewAdaper(private val mContext: Context, val instagramOb
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         //set up
-        val imgUrl = instagramObjList[i].imgUrl
+        val imgUrl: String? = instagramObjList[i].imgUrl
         if (imgUrl != null && !imgUrl.isEmpty()) {
             Glide.with(mContext).load(Uri.parse(imgUrl)).into(viewHolder.instagramImage)
         }
@@ -54,14 +54,10 @@ class InstagramRecyclerViewAdaper(private val mContext: Context, val instagramOb
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var instagramImage: ImageView
-        internal var likeCountText: TextView
-        internal var instagramListParentLayout: ConstraintLayout
+        val instagramImage = itemView.findViewById(R.id.layout_instagram_image) as ImageView
+        val likeCountText = itemView.findViewById(R.id.layout_instagram_like_text) as TextView
+        val instagramListParentLayout = itemView.findViewById(R.id.layout_instagram_constraintLayout) as ConstraintLayout
 
-        init {
-            instagramImage = itemView.findViewById(R.id.layout_instagram_image)
-            likeCountText = itemView.findViewById(R.id.layout_instagram_like_text)
-            instagramListParentLayout = itemView.findViewById(R.id.layout_instagram_constraintLayout)
-        }
+
     }
 }
